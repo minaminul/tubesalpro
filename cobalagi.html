@@ -1,0 +1,2315 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MinaMetrics - Professional Land Surveying</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Added CSS variables untuk light dan dark mode */
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --accent-primary: #3b82f6;
+            --accent-secondary: #0ea5e9;
+
+            /* Updated CSS variables */
+            --bg-light: #ffffff;
+            --bg-dark: #1a1a1a;
+            --text-light: #1f2937;
+            --text-dark: #f3f4f6;
+            --border-light: #e5e7eb;
+            --border-dark: #374151;
+            --card-light: #f9fafb;
+            --card-dark: #2d2d2d;
+        }
+        
+        /* Dark mode CSS variables */
+        body.dark-mode {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(15, 23, 42, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --accent-primary: #60a5fa;
+            --accent-secondary: #22d3ee;
+
+            /* Updated dark mode variables */
+            --bg-light: #1a1a1a;
+            --bg-dark: #0d0d0d;
+            --text-light: #f3f4f6;
+            --text-dark: #1f2937;
+            --border-light: #374151;
+            --border-dark: #4b5563;
+            --card-light: #2d2d2d;
+            --card-dark: #1a1a1a;
+        }
+
+        html.dark-mode {
+            --bg-primary: #0d0d0d; /* Changed */
+            --bg-secondary: #1e293b; /* Remains same */
+            --text-primary: #f3f4f6; /* Changed */
+            --text-dark: #1f2937; /* Changed */
+            --border-color: #374151; /* Changed */
+            --glass-bg: rgba(15, 23, 42, 0.8); /* Remains same */
+            --glass-border: rgba(255, 255, 255, 0.2); /* Remains same */
+            --accent-primary: #60a5fa; /* Remains same */
+            --accent-secondary: #22d3ee; /* Remains same */
+
+            --dashed-line-color: #4ade80;
+            --sub-point-color: #22c55e;
+        }
+
+        html:not(.dark-mode) {
+            --bg-primary: #ffffff; /* Changed */
+            --bg-secondary: #f8fafc; /* Remains same */
+            --text-primary: #1f2937; /* Changed */
+            --text-dark: #f3f4f6; /* Changed */
+            --border-color: #e5e7eb; /* Changed */
+            --glass-bg: rgba(255, 255, 255, 0.8); /* Remains same */
+            --glass-border: rgba(255, 255, 255, 0.3); /* Remains same */
+            --accent-primary: #3b82f6; /* Remains same */
+            --accent-secondary: #0ea5e9; /* Remains same */
+
+            --dashed-line-color: #059669;
+            --sub-point-color: #10b981;
+        }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glow-blue {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .hover-glow:hover {
+            box-shadow: 0 8px 32px rgba(59, 130, 246, 0.4);
+            transform: translateY(-8px);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+        }
+        
+        .nav-link:hover {
+            color: var(--accent-primary);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideInLeft 0.8s ease forwards;
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            animation: slideInRight 0.8s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+        }
+        
+        .timeline-item-horizontal {
+            position: relative;
+            padding: 1rem;
+        }
+        
+        .timeline-year {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .btn-gradient {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            transition: all 0.3s ease;
+            color: white;
+        }
+        
+        .btn-gradient:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+        }
+        
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+        
+        .section-heading {
+            position: relative;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+        }
+        
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 2px;
+        }
+        
+        .surveyor-tab {
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            color: var(--text-primary);
+        }
+        
+        .surveyor-tab.active {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            border-bottom-color: var(--accent-secondary);
+        }
+        
+        .surveyor-tab:hover:not(.active) {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-primary);
+        }
+        
+        .polygon-tab {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            color: var(--text-primary);
+        }
+        
+        .polygon-tab.active {
+            border-bottom-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+        
+        .result-box {
+            background: linear-gradient(135deg, rgba(219, 234, 254, 0.5), rgba(191, 219, 254, 0.5));
+            border: 2px solid var(--accent-primary);
+            color: var(--text-primary);
+        }
+        
+        body.dark-mode .result-box {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.5), rgba(23, 37, 84, 0.5));
+        }
+        
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        #mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        /* Responsive design untuk mobile dan desktop */
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+            
+            .section-heading {
+                margin-bottom: 2rem;
+            }
+            
+            #mobile-menu {
+                width: 100%;
+            }
+        }
+        
+        /* Dark mode toggle button styling */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--bg-secondary);
+        }
+        
+        input, textarea, select {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--accent-primary);
+            background-color: var(--bg-primary);
+        }
+    </style>
+  <style>@view-transition: navigation: auto; </style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="gradient-bg min-h-full"><!-- Navbar -->
+  <nav class="fixed top-0 w-full z-50 glass">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+     <div class="flex-shrink-0">
+      <h1 class="text-2xl font-bold gradient-text" id="brand-name">MinaMetrics</h1>
+     </div><!-- Desktop Menu -->
+     <div class="hidden md:block">
+      <div class="ml-10 flex items-baseline space-x-8"><button onclick="navigateToPage('home')" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Beranda</button> <button onclick="navigateToPage('about')" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Tentang</button> <button onclick="navigateToPage('services')" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Layanan</button> <button onclick="navigateToPage('calculator')" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Kalkulator</button> <button onclick="navigateToPage('partner')" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Partner</button> <button onclick="navigateToPage('contact')" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Kontak</button>
+      </div>
+     </div><!-- Mobile menu button -->
+     <div class="md:hidden flex items-center">
+        <button id="theme-toggle-btn" class="theme-toggle mr-4">
+            <span id="theme-icon">☀️</span>
+        </button>
+        <button id="mobile-menu-btn" class="text-gray-700 hover:text-blue-600 focus:outline-none">
+            <svg class="h-6 w-6" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+     </div>
+    </div>
+   </div><!-- Mobile Menu -->
+   <div id="mobile-menu" class="md:hidden fixed top-16 right-0 w-64 h-full glass">
+    <div class="px-2 pt-2 pb-3 space-y-1"><button onclick="navigateToPage('home')" class="block w-full text-left px-3 py-2 text-gray-700 hover:text-blue-600">Beranda</button> <button onclick="navigateToPage('about')" class="block w-full text-left px-3 py-2 text-gray-700 hover:text-blue-600">Tentang</button> <button onclick="navigateToPage('services')" class="block w-full text-left px-3 py-2 text-gray-700 hover:text-blue-600">Layanan</button> <button onclick="navigateToPage('calculator')" class="block w-full text-left px-3 py-2 text-gray-700 hover:text-blue-600">Kalkulator</button> <button onclick="navigateToPage('partner')" class="block w-full text-left px-3 py-2 text-gray-700 hover:text-blue-600">Partner</button> <button onclick="navigateToPage('contact')" class="block w-full text-left px-3 py-2 text-gray-700 hover:text-blue-600">Kontak</button>
+    </div>
+   </div>
+  </nav><!-- Main Content Container -->
+  <div class="pt-20 min-h-screen"><!-- Page Content Area -->
+   <div class="w-full" id="page-content"><!-- Home Page (Default) -->
+    <div id="home-page" class="page-content">
+     <section class="min-h-screen p-8">
+      <div class="max-w-6xl mx-auto"><!-- Hero Area -->
+       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16"><!-- Left Column -->
+        <div class="slide-in-left">
+         <p class="text-blue-600 font-semibold mb-4" id="hero-tagline">Teknologi Survey Terdepan</p>
+         <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6" id="hero-title">Solusi Survey Profesional untuk Masa Depan</h1>
+         <p class="text-lg text-gray-600 mb-8" id="hero-description">Dengan teknologi terdepan dan tim berpengalaman, kami memberikan layanan survey topografi, pemetaan GPS, dan analisis kontur yang akurat untuk proyek konstruksi dan infrastruktur Anda.</p>
+         <div class="flex flex-col sm:flex-row gap-4"><button onclick="navigateToPage('contact')" class="btn-gradient text-white px-8 py-3 rounded-lg font-semibold">Konsultasi Gratis</button> <button onclick="navigateToPage('services')" class="btn-glass text-gray-700 px-8 py-3 rounded-lg font-semibold">Lihat Layanan</button>
+         </div>
+        </div><!-- Right Column - SVG Illustration -->
+        <div class="slide-in-right">
+         <svg viewbox="0 0 400 300" class="w-full h-auto"><!-- Background --> <defs>
+           <lineargradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#7dd3fc;stop-opacity:0.3" />
+            <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0.1" />
+           </lineargradient>
+           <lineargradient id="equipmentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#3b82f6" />
+            <stop offset="100%" style="stop-color:#0ea5e9" />
+           </lineargradient>
+          </defs> <!-- Sky --> <rect width="400" height="150" fill="url(#skyGradient)" /> <!-- Ground --> <path d="M0 150 Q100 140 200 145 T400 150 L400 300 L0 300 Z" fill="#10b981" opacity="0.3" /> <path d="M0 160 Q150 150 300 155 T400 160 L400 300 L0 300 Z" fill="#059669" opacity="0.2" /> <!-- Survey Equipment (Total Station) --> <g transform="translate(180, 120)"><!-- Tripod -->
+           <line x1="0" y1="30" x2="-25" y2="80" stroke="url(#equipmentGradient)" stroke-width="3" />
+           <line x1="0" y1="30" x2="25" y2="80" stroke="url(#equipmentGradient)" stroke-width="3" />
+           <line x1="0" y1="30" x2="0" y2="80" stroke="url(#equipmentGradient)" stroke-width="3" /> <!-- Equipment Body -->
+           <rect x="-15" y="10" width="30" height="20" fill="url(#equipmentGradient)" rx="3" />
+           <circle cx="0" cy="20" r="8" fill="#0ea5e9" />
+           <circle cx="0" cy="20" r="4" fill="#ffffff" /> <!-- Telescope -->
+           <rect x="-20" y="17" width="40" height="6" fill="url(#equipmentGradient)" rx="3" />
+          </g> <!-- Survey Markers --> <g fill="url(#equipmentGradient)">
+           <circle cx="80" cy="180" r="4" />
+           <rect x="76" y="160" width="8" height="20" />
+           <circle cx="320" cy="170" r="4" />
+           <rect x="316" y="150" width="8" height="20" />
+           <circle cx="150" cy="190" r="4" />
+           <rect x="146" y="170" width="8" height="20" />
+          </g> <!-- Measurement Lines --> <g stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5" opacity="0.7">
+           <line x1="80" y1="180" x2="180" y2="150" />
+           <line x1="180" y1="150" x2="320" y2="170" />
+           <line x1="320" y1="170" x2="150" y2="190" />
+          </g> <!-- Elevation Lines --> <g stroke="#0ea5e9" stroke-width="1" opacity="0.5">
+           <path d="M50 200 Q150 190 250 195 T350 200" fill="none" />
+           <path d="M50 210 Q150 200 250 205 T350 210" fill="none" />
+           <path d="M50 220 Q150 210 250 215 T350 220" fill="none" />
+          </g> <!-- Distance Labels --> <g fill="#3b82f6" font-family="Arial" font-size="10" text-anchor="middle">
+           <text x="130" y="165">125.5m</text>
+           <text x="250" y="155">89.2m</text>
+           <text x="235" y="185">156.8m</text>
+          </g>
+         </svg>
+        </div>
+       </div><!-- Company Overview -->
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div class="glass rounded-2xl p-8 fade-in">
+         <h3 class="text-2xl font-bold text-gray-900 mb-4">Tentang MinaMetrics</h3>
+         <p class="text-gray-600 mb-4">Perusahaan survey dan pemetaan profesional yang telah berpengalaman lebih dari 6 tahun dalam memberikan solusi geospasial terdepan untuk berbagai proyek infrastruktur di Indonesia.</p>
+         <p class="text-gray-600">Dengan tim ahli bersertifikat dan teknologi modern, kami berkomitmen memberikan hasil survey yang akurat dan tepat waktu.</p>
+        </div>
+        <div class="glass rounded-2xl p-8 fade-in">
+         <h3 class="text-2xl font-bold text-gray-900 mb-4">Mengapa Memilih Kami?</h3>
+         <ul class="space-y-3">
+          <li class="flex items-start">
+           <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div><span class="text-gray-700">Akurasi tinggi dengan teknologi GPS RTK</span></li>
+          <li class="flex items-start">
+           <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div><span class="text-gray-700">Tim surveyor bersertifikat internasional</span></li>
+          <li class="flex items-start">
+           <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div><span class="text-gray-700">Pengalaman 100+ proyek sukses</span></li>
+          <li class="flex items-start">
+           <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div><span class="text-gray-700">Layanan konsultasi gratis</span></li>
+         </ul>
+        </div>
+       </div><!-- Quick Features -->
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-8"><!-- Survey Akurat -->
+        <div class="glass rounded-2xl p-8 text-center hover-glow transition-all duration-300 fade-in cursor-pointer" onclick="navigateToPage('services')">
+         <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 4m0 13V4m0 0L9 7" />
+          </svg>
+         </div>
+         <h3 class="text-xl font-bold text-gray-900 mb-4">Survey Akurat</h3>
+         <p class="text-gray-600">Teknologi GPS RTK dengan akurasi hingga centimeter untuk hasil survey yang presisi.</p>
+        </div><!-- Kalkulator Online -->
+        <div class="glass rounded-2xl p-8 text-center hover-glow transition-all duration-300 fade-in cursor-pointer" style="animation-delay: 0.2s;" onclick="navigateToPage('calculator')">
+         <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          </svg>
+         </div>
+         <h3 class="text-xl font-bold text-gray-900 mb-4">Kalkulator Online</h3>
+         <p class="text-gray-600">Tools perhitungan jarak, luas, dan volume tanah yang mudah digunakan dan akurat.</p>
+        </div><!-- Konsultasi Gratis -->
+        <div class="glass rounded-2xl p-8 text-center hover-glow transition-all duration-300 fade-in cursor-pointer" style="animation-delay: 0.4s;" onclick="navigateToPage('contact')">
+         <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+         </div>
+         <h3 class="text-xl font-bold text-gray-900 mb-4">Konsultasi Gratis</h3>
+         <p class="text-gray-600">Dapatkan konsultasi gratis untuk kebutuhan survey proyek Anda dari tim ahli kami.</p>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- About Page -->
+    <div id="about-page" class="page-content hidden">
+     <section class="min-h-screen p-8">
+      <div class="max-w-6xl mx-auto">
+       <h2 class="text-4xl font-bold text-gray-900 mb-12 text-center">Tentang MinaMetrics</h2>
+       <div class="glass rounded-2xl p-12 mb-12 fade-in">
+        <h3 class="text-2xl font-bold text-gray-900 mb-6">Sejarah Perusahaan</h3>
+        <div class="space-y-6">
+         <div class="timeline-item">
+          <div class="timeline-year">2018</div>
+          <p class="text-gray-600">MinaMetrics didirikan sebagai perusahaan survey profesional dengan fokus pada teknologi geospasial modern.</p>
+         </div>
+         <div class="timeline-item">
+          <div class="timeline-year">2019</div>
+          <p class="text-gray-600">Ekspansi ke layanan pemetaan GPS RTK dan analisis kontur untuk proyek infrastruktur besar.</p>
+         </div>
+         <div class="timeline-item">
+          <div class="timeline-year">2021</div>
+          <p class="text-gray-600">Pengembangan platform online untuk kalkulator survey dan analisis data geospasial.</p>
+         </div>
+         <div class="timeline-item">
+          <div class="timeline-year">2024</div>
+          <p class="text-gray-600">Meluncurkan MinaMetrics Web App dengan fitur perhitungan poligon, grid, dan profil online.</p>
+         </div>
+        </div>
+       </div>
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="glass rounded-2xl p-8 text-center fade-in">
+         <div class="text-4xl font-bold text-blue-600 mb-2">50+</div>
+         <p class="text-gray-700 font-semibold">Tim Profesional</p>
+         <p class="text-gray-600 text-sm mt-2">Surveyor bersertifikat internasional</p>
+        </div>
+        <div class="glass rounded-2xl p-8 text-center fade-in" style="animation-delay: 0.2s;">
+         <div class="text-4xl font-bold text-blue-600 mb-2">100+</div>
+         <p class="text-gray-700 font-semibold">Proyek Selesai</p>
+         <p class="text-gray-600 text-sm mt-2">Kepuasan klien 99%</p>
+        </div>
+        <div class="glass rounded-2xl p-8 text-center fade-in" style="animation-delay: 0.4s;">
+         <div class="text-4xl font-bold text-blue-600 mb-2">6+</div>
+         <p class="text-gray-700 font-semibold">Tahun Berpengalaman</p>
+         <p class="text-gray-600 text-sm mt-2">Di industri geospasial</p>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- Services Page -->
+    <div id="services-page" class="page-content hidden">
+     <section class="min-h-screen p-8">
+      <div class="max-w-6xl mx-auto">
+       <h2 class="text-4xl font-bold text-gray-900 mb-12 text-center">Layanan Kami</h2>
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div class="glass rounded-2xl p-8 hover-glow cursor-pointer fade-in">
+         <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 4m0 13V4m0 0L9 7" />
+          </svg>
+         </div>
+         <h3 class="text-2xl font-bold text-gray-900 mb-4">Survey Topografi</h3>
+         <p class="text-gray-600 mb-4">Pemetaan detail kontur tanah dengan teknologi GPS RTK presisi tinggi untuk proyek konstruksi dan infrastruktur.</p>
+         <ul class="space-y-2 text-sm text-gray-700">
+          <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>Akurasi hingga 2cm</li>
+          <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>Pemetaan area besar</li>
+          <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>Laporan detail</li>
+         </ul>
+        </div>
+        <div class="glass rounded-2xl p-8 hover-glow cursor-pointer fade-in" style="animation-delay: 0.2s;">
+         <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          </svg>
+         </div>
+         <h3 class="text-2xl font-bold text-gray-900 mb-4">Pemetaan GPS</h3>
+         <p class="text-gray-600 mb-4">Pengukuran koordinat presisi untuk penetapan batas wilayah, landmark, dan titik referensi penting.</p>
+         <ul class="space-y-2 text-sm text-gray-700">
+          <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>Teknologi RTK terbaru</li>
+          <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>Real-time processing</li>
+          <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>Sertifikat resmi</li>
+         </ul>
+        </div>
+        <div class="glass rounded-2xl p-8 hover-glow cursor-pointer fade-in" style="animation-delay: 0.4s;">
+         <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+         </div>
+         <h3 class="text-2xl font-bold text-gray-900 mb-4">Analisis Kontur</h3>
+         <p class="text-gray-600 mb-4">Analisis elevasi dan kemiringan lahan untuk perencanaan proyek sipil dan pengelolaan lingkungan.</p>
+         <ul class="space-y-2 text-sm text-gray-700">
+          <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>Peta kontur 3D</li>
+          <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>Analisis drainase</li>
+          <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>Volume earthwork</li>
+         </ul>
+        </div>
+        <div class="glass rounded-2xl p-8 hover-glow cursor-pointer fade-in" style="animation-delay: 0.6s;">
+         <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+         </div>
+         <h3 class="text-2xl font-bold text-gray-900 mb-4">Konsultasi Teknis</h3>
+         <p class="text-gray-600 mb-4">Konsultasi profesional untuk perencanaan survey, interpretasi data, dan solusi geospasial.</p>
+         <ul class="space-y-2 text-sm text-gray-700">
+          <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>Tim ahli berpengalaman</li>
+          <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>Gratis untuk klien baru</li>
+          <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>Support 24/7</li>
+         </ul>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- Calculator Page -->
+    <div id="calculator-page" class="page-content hidden">
+     <section class="min-h-screen p-8">
+      <div class="max-w-7xl mx-auto">
+       <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center">Kalkulator Surveyor &amp; Kontur</h2>
+       <div class="bg-white rounded-3xl shadow-2xl p-8 fade-in"><!-- Navigation Tabs -->
+        <div class="flex flex-wrap justify-center mb-8 border-b border-gray-200"><button class="surveyor-tab active px-6 py-3 font-semibold rounded-t-lg transition-all duration-300" data-tab="polygon">
+          <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 4m0 13V4m0 0L9 7" />
+          </svg> Poligon </button> <button class="surveyor-tab px-6 py-3 font-semibold rounded-t-lg transition-all duration-300" data-tab="grid">
+          <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+          </svg> Grid </button> <button class="surveyor-tab px-6 py-3 font-semibold rounded-t-lg transition-all duration-300" data-tab="profile">
+          <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </svg> Profil/Transek </button> <button class="surveyor-tab px-6 py-3 font-semibold rounded-t-lg transition-all duration-300" data-tab="random">
+          <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg> Titik Acak </button>
+        </div><!-- Polygon Module - SISTEM LENGKAP SESUAI REQUIREMENT -->
+        <div id="polygon-calc" class="surveyor-content">
+         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8"><!-- Input Section -->
+          <div class="xl:col-span-1">
+           <h3 class="text-xl font-bold text-gray-900 mb-6">Input Data Poligon</h3><!-- Tab untuk Main Points dan Sub Points -->
+           <div class="flex mb-4 border-b border-gray-200"><button id="main-point-tab" class="polygon-tab active px-4 py-2 font-semibold" onclick="switchPolygonTab('main')">Titik Utama</button> <button id="sub-point-tab" class="polygon-tab px-4 py-2 font-semibold" onclick="switchPolygonTab('sub')">Titik Turunan</button>
+           </div><!-- Input Titik Utama (A, B, C... dengan X, Y, Z) -->
+           <div id="main-point-input" class="space-y-4 mb-6">
+            <div class="bg-blue-50 p-3 rounded-lg text-sm text-blue-700"><strong>Titik Utama:</strong> Huruf besar (A, B, C...) dengan X, Y, dan Z (elevasi)
+            </div>
+            <div class="grid grid-cols-2 gap-2"><input type="text" placeholder="Nama (A,B,C...)" maxlength="1" pattern="[A-Z]" class="p-3 border border-gray-300 rounded-lg polygon-main-name" style="text-transform: uppercase;"> <input type="number" placeholder="X (m)" step="0.001" class="p-3 border border-gray-300 rounded-lg polygon-main-x">
+            </div>
+            <div class="grid grid-cols-2 gap-2"><input type="number" placeholder="Y (m)" step="0.001" class="p-3 border border-gray-300 rounded-lg polygon-main-y"> <input type="number" placeholder="Z (m)" step="0.001" class="p-3 border border-gray-300 rounded-lg polygon-main-z">
+            </div><button onclick="addMainPoint()" class="w-full btn-gradient text-white px-4 py-2 rounded-lg font-semibold">Tambah Titik Utama</button>
+           </div><!-- Input Titik Turunan (3 Metode) -->
+           <div id="sub-point-input" class="space-y-4 mb-6 hidden">
+            <div class="bg-green-50 p-3 rounded-lg text-sm text-green-700"><strong>Titik Turunan:</strong> Dari titik utama dengan 3 metode
+            </div><!-- Method Selection -->
+            <div class="grid grid-cols-3 gap-2"><button id="method-angle" class="px-3 py-2 rounded-lg font-semibold border-2 border-blue-500 bg-blue-50 text-blue-700" onclick="selectSubMethod('angle')">α</button> <button id="method-distance" class="px-3 py-2 rounded-lg font-semibold border-2 border-gray-300 text-gray-700" onclick="selectSubMethod('distance')">δ</button> <button id="method-height" class="px-3 py-2 rounded-lg font-semibold border-2 border-gray-300 text-gray-700" onclick="selectSubMethod('height')">Z</button>
+            </div>
+            <!-- Method 1: Angle + Distance -->
+            <div id="method-angle-input" class="space-y-3">
+             <select class="w-full p-3 border border-gray-300 rounded-lg polygon-sub-main"><option value="">Pilih Titik Utama</option></select>
+             <input type="text" placeholder="Nama (a1, b1...)" class="w-full p-3 border border-gray-300 rounded-lg polygon-sub-name">
+             <!-- Split into separate divs for better control and conditional display -->
+             <div id="angle-input-section">
+              <label class="text-sm font-semibold text-gray-700 block mb-1">Sudut (°)</label>
+              <input type="number" placeholder="Masukkan sudut…" step="0.01" min="0" max="360" class="w-full p-3 border border-gray-300 rounded-lg polygon-sub-angle" id="input-angle-value">
+             </div>
+             <div id="distance-input-section" class="hidden">
+              <label class="text-sm font-semibold text-gray-700 block mb-1">Jarak (m)</label>
+              <input type="number" placeholder="Masukkan jarak…" step="0.001" class="w-full p-3 border border-gray-300 rounded-lg polygon-sub-distance" id="input-distance-value">
+             </div>
+            </div>
+            <!-- Method 2: Distance Only -->
+            <div id="method-distance-input" class="space-y-3 hidden">
+             <select class="w-full p-3 border border-gray-300 rounded-lg polygon-sub-main-dist"><option value="">Pilih Titik Utama</option></select>
+             <input type="text" placeholder="Nama (a1, b1...)" class="w-full p-3 border border-gray-300 rounded-lg polygon-sub-name-dist">
+             <!-- Add label for distance-only input -->
+             <div>
+              <label class="text-sm font-semibold text-gray-700 block mb-1">Jarak (m)</label>
+              <input type="number" placeholder="Masukkan jarak…" step="0.001" class="w-full p-3 border border-gray-300 rounded-lg polygon-sub-distance-only" id="input-distance-only-value">
+             </div>
+            </div>
+            <!-- Method 3: Height Only -->
+            <div id="method-height-input" class="space-y-3 hidden">
+             <select class="w-full p-3 border border-gray-300 rounded-lg polygon-sub-main-height"><option value="">Pilih Titik Utama</option></select>
+             <input type="text" placeholder="Nama (a1, b1...)" class="w-full p-3 border border-gray-300 rounded-lg polygon-sub-name-height">
+             <!-- Add label for height-only input -->
+             <div>
+              <label class="text-sm font-semibold text-gray-700 block mb-1">Tinggi (m)</label>
+              <input type="number" placeholder="Masukkan tinggi…" step="0.001" class="w-full p-3 border border-gray-300 rounded-lg polygon-sub-z-height" id="input-height-value">
+             </div>
+            </div><button onclick="addSubPoint()" class="w-full btn-gradient text-white px-4 py-2 rounded-lg font-semibold">Tambah Titik Turunan</button>
+           </div>
+           <div class="space-y-3"><button onclick="calculatePolygon()" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-semibold">Hitung Poligon</button> <button onclick="loadSampleData('polygon')" class="w-full bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold">📋 Load Data Contoh</button> <button onclick="clearData('polygon')" class="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold">Clear Data</button> <button onclick="exportPolygonData('csv')" class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold">Ekspor CSV</button> <button onclick="exportPolygonData('json')" class="w-full bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-semibold">Ekspor JSON</button>
+           </div>
+          </div><!-- Results Section -->
+          <div class="xl:col-span-2">
+           <h3 class="text-xl font-bold text-gray-900 mb-6">Hasil Perhitungan</h3><!-- Summary Stats -->
+           <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
+             <h5 class="font-semibold text-blue-800 mb-1">Perimeter</h5>
+             <p id="polygon-perimeter" class="text-lg font-bold text-blue-600">0.00 m</p>
+            </div>
+            <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
+             <h5 class="font-semibold text-green-800 mb-1">Luas</h5>
+             <p id="polygon-area" class="text-lg font-bold text-green-600">0.00 m²</p>
+            </div>
+            <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 text-center">
+             <h5 class="font-semibold text-purple-800 mb-1">Titik Utama</h5>
+             <p id="polygon-main-count" class="text-lg font-bold text-purple-600">0</p>
+            </div>
+            <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 text-center">
+             <h5 class="font-semibold text-orange-800 mb-1">Titik Turunan</h5>
+             <p id="polygon-sub-count" class="text-lg font-bold text-orange-600">0</p>
+            </div>
+           </div><!-- Tabel Titik Utama -->
+           <div class="mb-6">
+            <h4 class="font-semibold text-gray-700 mb-3">Tabel Titik Utama</h4>
+            <div class="overflow-x-auto">
+             <table class="w-full border-collapse border border-gray-300 rounded-lg text-sm">
+              <thead class="bg-blue-50">
+               <tr>
+                <th class="border border-gray-300 px-3 py-2 text-left">Titik</th>
+                <th class="border border-gray-300 px-3 py-2 text-right">X (m)</th>
+                <th class="border border-gray-300 px-3 py-2 text-right">Y (m)</th>
+                <th class="border border-gray-300 px-3 py-2 text-right">Z (m)</th>
+                <th class="border border-gray-300 px-3 py-2 text-right">Azimuth (°)</th>
+                <th class="border border-gray-300 px-3 py-2 text-right">Jarak (m)</th>
+                <th class="border border-gray-300 px-3 py-2 text-center">Aksi</th>
+               </tr>
+              </thead>
+              <tbody id="polygon-main-table-body">
+               <tr>
+                <td colspan="7" class="border border-gray-300 px-4 py-8 text-center text-gray-500">Belum ada titik utama</td>
+               </tr>
+              </tbody>
+             </table>
+            </div>
+           </div><!-- Tabel Titik Turunan -->
+           <div class="mb-6">
+            <h4 class="font-semibold text-gray-700 mb-3">Tabel Titik Turunan</h4>
+            <div class="overflow-x-auto">
+             <table class="w-full border-collapse border border-gray-300 rounded-lg text-sm">
+              <thead class="bg-green-50">
+               <tr>
+                <th class="border border-gray-300 px-3 py-2 text-left">Titik</th>
+                <th class="border border-gray-300 px-3 py-2 text-left">Utama</th>
+                <th class="border border-gray-300 px-3 py-2 text-right">X (m)</th>
+                <th class="border border-gray-300 px-3 py-2 text-right">Y (m)</th>
+                <th class="border border-gray-300 px-3 py-2 text-right">Z (m)</th>
+                <th class="border border-gray-300 px-3 py-2 text-center">Metode</th>
+                <th class="border border-gray-300 px-3 py-2 text-center">Aksi</th>
+               </tr>
+              </thead>
+              <tbody id="polygon-sub-table-body">
+               <tr>
+                <td colspan="7" class="border border-gray-300 px-4 py-8 text-center text-gray-500">Belum ada titik turunan</td>
+               </tr>
+              </tbody>
+             </table>
+            </div>
+           </div><!-- Visualization -->
+           <div class="mt-6">
+            <h4 class="font-semibold text-gray-700 mb-3">Preview Poligon (Bezier Curves)</h4>
+            <div id="polygon-preview" class="border border-gray-300 rounded-lg bg-gray-50 h-80 flex items-center justify-center">
+             <p class="text-gray-500">Tambahkan minimal 3 titik utama untuk melihat preview</p>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div><!-- Grid Module -->
+        <div id="grid-calc" class="surveyor-content hidden">
+         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8"><!-- Input Section -->
+          <div class="xl:col-span-1">
+           <h3 class="text-xl font-bold text-gray-900 mb-6">Input Data Grid</h3>
+           <div class="space-y-4 mb-6">
+            <div class="grid grid-cols-4 gap-2"><input type="text" placeholder="Nama" class="p-3 border border-gray-300 rounded-lg grid-name"> <input type="number" placeholder="X (m)" step="0.001" class="p-3 border border-gray-300 rounded-lg grid-x"> <input type="number" placeholder="Y (m)" step="0.001" class="p-3 border border-gray-300 rounded-lg grid-y"> <input type="number" placeholder="Z (m)" step="0.001" class="p-3 border border-gray-300 rounded-lg grid-z">
+            </div><button onclick="addGridPoint()" class="w-full btn-gradient text-white px-4 py-2 rounded-lg font-semibold">Tambah Titik Grid</button>
+           </div>
+           <div class="space-y-3"><button onclick="calculateGrid()" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-semibold">Hitung Grid</button> <button onclick="loadSampleData('grid')" class="w-full bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold">📋 Load Data Contoh</button> <button onclick="clearData('grid')" class="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold">Clear Data</button> <button onclick="exportData('grid', 'csv')" class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold">Ekspor CSV</button>
+           </div>
+          </div><!-- Results Section -->
+          <div class="xl:col-span-2">
+           <h3 class="text-xl font-bold text-gray-900 mb-6">Hasil Perhitungan Grid</h3>
+           <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
+             <h5 class="font-semibold text-blue-800 mb-1">Total Titik</h5>
+             <p id="grid-count" class="text-lg font-bold text-blue-600">0</p>
+            </div>
+            <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
+             <h5 class="font-semibold text-green-800 mb-1">Elevasi Rata-rata</h5>
+             <p id="grid-avg-elevation" class="text-lg font-bold text-green-600">0.00 m</p>
+            </div>
+            <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 text-center">
+             <h5 class="font-semibold text-purple-800 mb-1">Range Elevasi</h5>
+             <p id="grid-elevation-range" class="text-lg font-bold text-purple-600">0.00 m</p>
+            </div>
+           </div>
+           <div class="overflow-x-auto">
+            <table class="w-full border-collapse border border-gray-300 rounded-lg">
+             <thead class="bg-blue-50">
+              <tr>
+               <th class="border border-gray-300 px-4 py-2 text-left">Nama</th>
+               <th class="border border-gray-300 px-4 py-2 text-right">X (m)</th>
+               <th class="border border-gray-300 px-4 py-2 text-right">Y (m)</th>
+               <th class="border border-gray-300 px-4 py-2 text-right">Z (m)</th>
+               <th class="border border-gray-300 px-4 py-2 text-center">Aksi</th>
+              </tr>
+             </thead>
+             <tbody id="grid-table-body">
+              <tr>
+               <td colspan="5" class="border border-gray-300 px-4 py-8 text-center text-gray-500">Belum ada data grid</td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+           <div class="mt-6">
+            <h4 class="font-semibold text-gray-700 mb-3">Preview Grid</h4>
+            <div id="grid-preview" class="border border-gray-300 rounded-lg bg-gray-50 h-64 flex items-center justify-center">
+             <p class="text-gray-500">Tambahkan titik grid untuk melihat preview</p>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div><!-- Profile/Transek Module -->
+        <div id="profile-calc" class="surveyor-content hidden">
+         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8"><!-- Input Section -->
+          <div class="xl:col-span-1">
+           <h3 class="text-xl font-bold text-gray-900 mb-6">Input Data Profil/Transek</h3>
+           <div class="space-y-4 mb-6">
+            <div class="grid grid-cols-3 gap-2"><input type="text" placeholder="Nama" class="p-3 border border-gray-300 rounded-lg profile-name"> <input type="number" placeholder="Jarak (m)" step="0.001" class="p-3 border border-gray-300 rounded-lg profile-distance"> <input type="number" placeholder="Elevasi (m)" step="0.001" class="p-3 border border-gray-300 rounded-lg profile-elevation">
+            </div><button onclick="addProfilePoint()" class="w-full btn-gradient text-white px-4 py-2 rounded-lg font-semibold">Tambah Titik Profil</button>
+           </div>
+           <div class="space-y-3"><button onclick="calculateProfile()" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-semibold">Hitung Profil</button> <button onclick="loadSampleData('profile')" class="w-full bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold">📋 Load Data Contoh</button> <button onclick="clearData('profile')" class="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold">Clear Data</button> <button onclick="exportData('profile', 'csv')" class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold">Ekspor CSV</button>
+           </div>
+          </div><!-- Results Section -->
+          <div class="xl:col-span-2">
+           <h3 class="text-xl font-bold text-gray-900 mb-6">Hasil Perhitungan Profil</h3>
+           <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
+             <h5 class="font-semibold text-blue-800 mb-1">Total Jarak</h5>
+             <p id="profile-total-distance" class="text-lg font-bold text-blue-600">0.00 m</p>
+            </div>
+            <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
+             <h5 class="font-semibold text-green-800 mb-1">Kemiringan Rata-rata</h5>
+             <p id="profile-avg-slope" class="text-lg font-bold text-green-600">0.00%</p>
+            </div>
+            <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 text-center">
+             <h5 class="font-semibold text-purple-800 mb-1">Elevasi Tertinggi</h5>
+             <p id="profile-max-elevation" class="text-lg font-bold text-purple-600">0.00 m</p>
+            </div>
+            <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 text-center">
+             <h5 class="font-semibold text-orange-800 mb-1">Elevasi Terendah</h5>
+             <p id="profile-min-elevation" class="text-lg font-bold text-orange-600">0.00 m</p>
+            </div>
+           </div>
+           <div class="overflow-x-auto">
+            <table class="w-full border-collapse border border-gray-300 rounded-lg">
+             <thead class="bg-blue-50">
+              <tr>
+               <th class="border border-gray-300 px-4 py-2 text-left">Nama</th>
+               <th class="border border-gray-300 px-4 py-2 text-right">Jarak (m)</th>
+               <th class="border border-gray-300 px-4 py-2 text-right">Elevasi (m)</th>
+               <th class="border border-gray-300 px-4 py-2 text-right">Kemiringan (%)</th>
+               <th class="border border-gray-300 px-4 py-2 text-center">Aksi</th>
+              </tr>
+             </thead>
+             <tbody id="profile-table-body">
+              <tr>
+               <td colspan="5" class="border border-gray-300 px-4 py-8 text-center text-gray-500">Belum ada data profil</td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+           <div class="mt-6">
+            <h4 class="font-semibold text-gray-700 mb-3">Grafik Profil</h4>
+            <div id="profile-chart" class="border border-gray-300 rounded-lg bg-gray-50 h-64 flex items-center justify-center">
+             <p class="text-gray-500">Tambahkan titik profil untuk melihat grafik</p>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div><!-- Random Points Module -->
+        <div id="random-calc" class="surveyor-content hidden">
+         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8"><!-- Input Section -->
+          <div class="xl:col-span-1">
+           <h3 class="text-xl font-bold text-gray-900 mb-6">Input Titik Acak</h3>
+           <div class="space-y-4 mb-6">
+            <div class="grid grid-cols-4 gap-2"><input type="text" placeholder="Nama" class="p-3 border border-gray-300 rounded-lg random-name"> <input type="number" placeholder="X (m)" step="0.001" class="p-3 border border-gray-300 rounded-lg random-x"> <input type="number" placeholder="Y (m)" step="0.001" class="p-3 border border-gray-300 rounded-lg random-y"> <input type="number" placeholder="Z (m)" step="0.001" class="p-3 border border-gray-300 rounded-lg random-z">
+            </div><button onclick="addRandomPoint()" class="w-full btn-gradient text-white px-4 py-2 rounded-lg font-semibold">Tambah Titik Acak</button>
+           </div>
+           <div class="space-y-3"><button onclick="calculateRandom()" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-semibold">Analisis Titik Acak</button> <button onclick="loadSampleData('random')" class="w-full bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold">📋 Load Data Contoh</button> <button onclick="clearData('random')" class="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold">Clear Data</button> <button onclick="exportData('random', 'csv')" class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold">Ekspor CSV</button>
+           </div>
+          </div><!-- Results Section -->
+          <div class="xl:col-span-2">
+           <h3 class="text-xl font-bold text-gray-900 mb-6">Hasil Analisis Titik Acak</h3>
+           <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
+             <h5 class="font-semibold text-blue-800 mb-1">Total Titik</h5>
+             <p id="random-count" class="text-lg font-bold text-blue-600">0</p>
+            </div>
+            <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
+             <h5 class="font-semibold text-green-800 mb-1">Jarak Rata-rata</h5>
+             <p id="random-avg-distance" class="text-lg font-bold text-green-600">0.00 m</p>
+            </div>
+            <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 text-center">
+             <h5 class="font-semibold text-purple-800 mb-1">Sebaran Area</h5>
+             <p id="random-area" class="text-lg font-bold text-purple-600">0.00 m²</p>
+            </div>
+           </div>
+           <div class="overflow-x-auto">
+            <table class="w-full border-collapse border border-gray-300 rounded-lg">
+             <thead class="bg-blue-50">
+              <tr>
+               <th class="border border-gray-300 px-4 py-2 text-left">Nama</th>
+               <th class="border border-gray-300 px-4 py-2 text-right">X (m)</th>
+               <th class="border border-gray-300 px-4 py-2 text-right">Y (m)</th>
+               <th class="border border-gray-300 px-4 py-2 text-right">Z (m)</th>
+               <th class="border border-gray-300 px-4 py-2 text-right">Jarak ke Pusat (m)</th>
+               <th class="border border-gray-300 px-4 py-2 text-center">Aksi</th>
+              </tr>
+             </thead>
+             <tbody id="random-table-body">
+              <tr>
+               <td colspan="6" class="border border-gray-300 px-4 py-8 text-center text-gray-500">Belum ada titik acak</td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+           <div class="mt-6">
+            <h4 class="font-semibold text-gray-700 mb-3">Sebaran Titik Acak</h4>
+            <div id="random-preview" class="border border-gray-300 rounded-lg bg-gray-50 h-64 flex items-center justify-center">
+             <p class="text-gray-500">Tambahkan titik acak untuk melihat sebaran</p>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- Partner Page -->
+    <div id="partner-page" class="page-content hidden">
+     <section class="min-h-screen p-8">
+      <div class="max-w-6xl mx-auto">
+       <h2 class="text-4xl font-bold text-gray-900 mb-12 text-center">Mitra Bisnis Kami</h2>
+       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div class="glass rounded-2xl p-8 text-center fade-in">
+         <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center">
+          <span class="text-3xl font-bold text-white">PT</span>
+         </div>
+         <h3 class="text-xl font-bold text-gray-900 mb-2">PT Konstruksi Besar</h3>
+         <p class="text-gray-600 text-sm mb-4">Mitra utama dalam proyek infrastruktur skala besar dan pembangunan perkotaan.</p>
+         <p class="text-blue-600 font-semibold">50+ Proyek</p>
+        </div>
+        <div class="glass rounded-2xl p-8 text-center fade-in" style="animation-delay: 0.2s;">
+         <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center">
+          <span class="text-3xl font-bold text-white">DA</span>
+         </div>
+         <h3 class="text-xl font-bold text-gray-900 mb-2">Dinas Aset & Infrastruktur</h3>
+         <p class="text-gray-600 text-sm mb-4">Kerjasama untuk survey dan pemetaan aset publik serta infrastruktur pemerintah.</p>
+         <p class="text-blue-600 font-semibold">25+ Proyek</p>
+        </div>
+        <div class="glass rounded-2xl p-8 text-center fade-in" style="animation-delay: 0.4s;">
+         <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center">
+          <span class="text-3xl font-bold text-white">PG</span>
+         </div>
+         <h3 class="text-xl font-bold text-gray-900 mb-2">Pertanian & Geospasial</h3>
+         <p class="text-gray-600 text-sm mb-4">Mitra dalam penelitian lahan pertanian dan analisis geospasial pertanian berkelanjutan.</p>
+         <p class="text-blue-600 font-semibold">15+ Proyek</p>
+        </div>
+       </div>
+       <div class="glass rounded-2xl p-12">
+        <h3 class="text-2xl font-bold text-gray-900 mb-6">Bergabunglah dengan Network Kami</h3>
+        <p class="text-gray-600 mb-6">Kami membuka peluang kemitraan untuk perusahaan dan profesional yang ingin bergabung dalam ekosistem survey dan pemetaan profesional.</p>
+        <button onclick="navigateToPage('contact')" class="btn-gradient text-white px-8 py-3 rounded-lg font-semibold">Hubungi Kami Sekarang</button>
+       </div>
+      </div>
+     </section>
+    </div><!-- Contact Page -->
+    <div id="contact-page" class="page-content hidden">
+     <section class="min-h-screen p-8">
+      <div class="max-w-6xl mx-auto">
+       <h2 class="text-4xl font-bold text-gray-900 mb-12 text-center">Hubungi Kami</h2>
+       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div class="fade-in">
+         <h3 class="text-2xl font-bold text-gray-900 mb-8">Informasi Kontak</h3>
+         <div class="space-y-6">
+          <div class="flex items-start">
+           <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+           </div>
+           <div class="ml-4">
+            <h4 class="text-lg font-bold text-gray-900">Alamat</h4>
+            <p class="text-gray-600">Jl. Teknologi No. 123, Jakarta Selatan 12345</p>
+           </div>
+          </div>
+          <div class="flex items-start">
+           <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+           </div>
+           <div class="ml-4">
+            <h4 class="text-lg font-bold text-gray-900">Telepon</h4>
+            <p class="text-gray-600">+62 21 5555 1234</p>
+           </div>
+          </div>
+          <div class="flex items-start">
+           <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+           </div>
+           <div class="ml-4">
+            <h4 class="text-lg font-bold text-gray-900">Email</h4>
+            <p class="text-gray-600">info@minametrics.com</p>
+           </div>
+          </div>
+          <div class="flex items-start">
+           <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+           </div>
+           <div class="ml-4">
+            <h4 class="text-lg font-bold text-gray-900">Jam Operasional</h4>
+            <p class="text-gray-600">Senin - Jumat: 09:00 - 17:00</p>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="glass rounded-2xl p-8 fade-in" style="animation-delay: 0.2s;">
+         <h3 class="text-2xl font-bold text-gray-900 mb-6">Formulir Kontak</h3>
+         <form class="space-y-4">
+          <input type="text" placeholder="Nama Anda" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+          <input type="email" placeholder="Email Anda" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+          <input type="text" placeholder="Subjek" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+          <textarea placeholder="Pesan Anda" rows="5" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
+          <button type="submit" class="w-full btn-gradient text-white px-6 py-3 rounded-lg font-semibold">Kirim Pesan</button>
+         </form>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div>
+   </div>
+  </div>
+  <script>
+        const defaultConfig = {
+            brand_name: "MinaMetrics",
+            hero_tagline: "Teknologi Survey Terdepan",
+            hero_title: "Solusi Survey Profesional untuk Masa Depan",
+            hero_description: "Dengan teknologi terdepan dan tim berpengalaman, kami memberikan layanan survey topografi, pemetaan GPS, dan analisis kontur yang akurat untuk proyek konstruksi dan infrastruktur Anda.",
+            ceo_name: "Tika Nur Aminah, S.T.",
+            ceo_title: "CEO & Founder"
+        };
+
+        // State untuk tema saat ini (light/dark)
+        let currentTheme = localStorage.getItem('theme') || 'light';
+        
+        function applyTheme(theme) {
+            currentTheme = theme;
+            document.body.classList.toggle('dark-mode', theme === 'dark');
+            document.documentElement.classList.toggle('dark-mode', theme === 'dark'); // Apply to html element as well
+            localStorage.setItem('theme', theme);
+            
+            const themeIcon = document.getElementById('theme-icon');
+            if (themeIcon) {
+                themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
+            }
+        }
+
+        function onConfigChange(config) {
+            const brandElement = document.getElementById('brand-name');
+            if (brandElement) {
+                brandElement.textContent = config.brand_name || defaultConfig.brand_name;
+            }
+
+            const taglineElement = document.getElementById('hero-tagline');
+            if (taglineElement) {
+                taglineElement.textContent = config.hero_tagline || defaultConfig.hero_tagline;
+            }
+
+            const titleElement = document.getElementById('hero-title');
+            if (titleElement) {
+                titleElement.textContent = config.hero_title || defaultConfig.hero_title;
+            }
+
+            const descElement = document.getElementById('hero-description');
+            if (descElement) {
+                descElement.textContent = config.hero_description || defaultConfig.hero_description;
+            }
+
+            const ceoNameElement = document.getElementById('ceo-name');
+            if (ceoNameElement) {
+                ceoNameElement.textContent = config.ceo_name || defaultConfig.ceo_name;
+            }
+
+            const ceoTitleElement = document.getElementById('ceo-title');
+            if (ceoTitleElement) {
+                ceoTitleElement.textContent = config.ceo_title || defaultConfig.ceo_title;
+            }
+        }
+
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [],
+                borderables: [],
+                fontEditable: undefined,
+                fontSizeable: undefined
+            };
+        }
+
+        function mapToEditPanelValues(config) {
+            return new Map([
+                ["brand_name", config.brand_name || defaultConfig.brand_name],
+                ["hero_tagline", config.hero_tagline || defaultConfig.hero_tagline],
+                ["hero_title", config.hero_title || defaultConfig.hero_title],
+                ["hero_description", config.hero_description || defaultConfig.hero_description],
+                ["ceo_name", config.ceo_name || defaultConfig.ceo_name],
+                ["ceo_title", config.ceo_title || defaultConfig.ceo_title]
+            ]);
+        }
+
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig,
+                onConfigChange,
+                mapToCapabilities,
+                mapToEditPanelValues
+            });
+        }
+
+        // Event listener untuk toggle tema
+        document.getElementById('theme-toggle-btn').addEventListener('click', function() {
+            applyTheme(currentTheme === 'light' ? 'dark' : 'light');
+        });
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('active');
+        });
+
+        let currentPage = 'home';
+
+        function navigateToPage(pageName) {
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            const targetPage = document.getElementById(pageName + '-page');
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+                currentPage = pageName;
+                
+                document.getElementById('mobile-menu').classList.remove('active');
+                
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        let polygonMainPoints = [];
+        let polygonSubPoints = [];
+        let currentSubMethod = 'angle';
+
+        let gridPoints = [];
+        let profilePoints = [];
+        let randomPoints = [];
+
+        document.querySelectorAll('.surveyor-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.surveyor-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                document.querySelectorAll('.surveyor-content').forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                const targetId = this.getAttribute('data-tab') + '-calc';
+                document.getElementById(targetId).classList.remove('hidden');
+            });
+        });
+
+        function switchPolygonTab(tabType) {
+            const mainTab = document.getElementById('main-point-tab');
+            const subTab = document.getElementById('sub-point-tab');
+            const mainInput = document.getElementById('main-point-input');
+            const subInput = document.getElementById('sub-point-input');
+
+            if (tabType === 'main') {
+                mainTab.classList.add('active');
+                subTab.classList.remove('active');
+                mainInput.classList.remove('hidden');
+                subInput.classList.add('hidden');
+            } else {
+                mainTab.classList.remove('active');
+                subTab.classList.add('active');
+                mainInput.classList.add('hidden');
+                subInput.classList.remove('hidden');
+                updateSubPointDropdowns();
+            }
+        }
+
+        function selectSubMethod(method) {
+            currentSubMethod = method;
+            
+            document.getElementById('method-angle').classList.remove('border-blue-500', 'bg-blue-50', 'text-blue-700');
+            document.getElementById('method-angle').classList.add('border-gray-300', 'text-gray-700');
+            document.getElementById('method-distance').classList.remove('border-blue-500', 'bg-blue-50', 'text-blue-700');
+            document.getElementById('method-distance').classList.add('border-gray-300', 'text-gray-700');
+            document.getElementById('method-height').classList.remove('border-blue-500', 'bg-blue-50', 'text-blue-700');
+            document.getElementById('method-height').classList.add('border-gray-300', 'text-gray-700');
+            
+            document.getElementById(`method-${method}`).classList.add('border-blue-500', 'bg-blue-50', 'text-blue-700');
+            
+            document.getElementById('method-angle-input').classList.add('hidden');
+            document.getElementById('method-distance-input').classList.add('hidden');
+            document.getElementById('method-height-input').classList.add('hidden');
+            
+            if (method === 'angle') {
+                document.getElementById('method-angle-input').classList.remove('hidden');
+                document.getElementById('angle-input-section').classList.remove('hidden');
+                document.getElementById('distance-input-section').classList.add('hidden');
+            } else if (method === 'distance') {
+                document.getElementById('method-distance-input').classList.remove('hidden');
+            } else if (method === 'height') {
+                document.getElementById('method-height-input').classList.remove('hidden');
+            }
+        }
+
+        function addMainPoint() {
+            const name = document.querySelector('.polygon-main-name').value.toUpperCase().trim();
+            const x = parseFloat(document.querySelector('.polygon-main-x').value);
+            const y = parseFloat(document.querySelector('.polygon-main-y').value);
+            const z = parseFloat(document.querySelector('.polygon-main-z').value);
+
+            if (!name || !/^[A-Z]$/.test(name)) {
+                showMessage('Nama titik utama harus huruf besar tunggal (A, B, C...)', 'error');
+                return;
+            }
+
+            if (isNaN(x) || isNaN(y) || isNaN(z)) {
+                showMessage('Koordinat X, Y, dan Z harus diisi dengan angka', 'error');
+                return;
+            }
+
+            if (polygonMainPoints.find(p => p.name === name)) {
+                showMessage(`Titik utama ${name} sudah ada`, 'error');
+                return;
+            }
+
+            polygonMainPoints.push({ name, x, y, z });
+            
+            document.querySelector('.polygon-main-name').value = '';
+            document.querySelector('.polygon-main-x').value = '';
+            document.querySelector('.polygon-main-y').value = '';
+            document.querySelector('.polygon-main-z').value = '';
+
+            updateMainPointTable();
+            updateSubPointDropdowns();
+            showMessage(`Titik utama ${name} (${x}, ${y}, ${z}) berhasil ditambahkan`, 'success');
+        }
+
+        function addSubPoint() {
+            let subPoint = null;
+
+            if (currentSubMethod === 'angle') {
+                const mainPoint = document.querySelector('.polygon-sub-main').value;
+                const name = document.querySelector('.polygon-sub-name').value.trim();
+                const angle = parseFloat(document.querySelector('.polygon-sub-angle').value);
+                const distance = parseFloat(document.querySelector('.polygon-sub-distance').value);
+
+                if (!mainPoint || !name || isNaN(angle) || isNaN(distance)) {
+                    showMessage('Semua field harus diisi dengan benar', 'error');
+                    return;
+                }
+
+                const mainPt = polygonMainPoints.find(p => p.name === mainPoint);
+                if (!mainPt) {
+                    showMessage('Titik utama tidak ditemukan', 'error');
+                    return;
+                }
+
+                const rad = (angle * Math.PI) / 180;
+                const x = mainPt.x + distance * Math.sin(rad);
+                const y = mainPt.y + distance * Math.cos(rad);
+                
+                subPoint = { name, mainPoint, x, y, z: mainPt.z, method: 'Sudut+Jarak', angle, distance };
+
+                document.querySelector('.polygon-sub-name').value = '';
+                document.querySelector('.polygon-sub-angle').value = '';
+                document.querySelector('.polygon-sub-distance').value = '';
+
+            } else if (currentSubMethod === 'distance') {
+                const mainPoint = document.querySelector('.polygon-sub-main-dist').value;
+                const name = document.querySelector('.polygon-sub-name-dist').value.trim();
+                const distance = parseFloat(document.querySelector('.polygon-sub-distance-only').value);
+
+                if (!mainPoint || !name || isNaN(distance)) {
+                    showMessage('Semua field harus diisi dengan benar', 'error');
+                    return;
+                }
+
+                const mainPt = polygonMainPoints.find(p => p.name === mainPoint);
+                if (!mainPt) {
+                    showMessage('Titik utama tidak ditemukan', 'error');
+                    return;
+                }
+
+                subPoint = { name, mainPoint, x: mainPt.x, y: mainPt.y, z: mainPt.z, method: 'Jarak', distance };
+
+                document.querySelector('.polygon-sub-name-dist').value = '';
+                document.querySelector('.polygon-sub-distance-only').value = '';
+
+            } else if (currentSubMethod === 'height') {
+                const mainPoint = document.querySelector('.polygon-sub-main-height').value;
+                const name = document.querySelector('.polygon-sub-name-height').value.trim();
+                const z = parseFloat(document.querySelector('.polygon-sub-z-height').value);
+
+                if (!mainPoint || !name || isNaN(z)) {
+                    showMessage('Semua field harus diisi dengan benar', 'error');
+                    return;
+                }
+
+                const mainPt = polygonMainPoints.find(p => p.name === mainPoint);
+                if (!mainPt) {
+                    showMessage('Titik utama tidak ditemukan', 'error');
+                    return;
+                }
+
+                subPoint = { name, mainPoint, x: mainPt.x, y: mainPt.y, z, method: 'Tinggi' };
+
+                document.querySelector('.polygon-sub-name-height').value = '';
+                document.querySelector('.polygon-sub-z-height').value = '';
+            }
+
+            if (!subPoint) return;
+
+            if (polygonSubPoints.find(p => p.name === subPoint.name)) {
+                showMessage(`Titik turunan ${subPoint.name} sudah ada`, 'error');
+                return;
+            }
+
+            polygonSubPoints.push(subPoint);
+            updateSubPointTable();
+            showMessage(`Titik turunan ${subPoint.name} (metode: ${subPoint.method}) berhasil ditambahkan`, 'success');
+        }
+
+        function updateSubPointDropdowns() {
+            const dropdowns = [
+                document.querySelector('.polygon-sub-main'),
+                document.querySelector('.polygon-sub-main-dist'),
+                document.querySelector('.polygon-sub-main-height')
+            ];
+            
+            dropdowns.forEach(dropdown => {
+                if (dropdown) {
+                    dropdown.innerHTML = '<option value="">Pilih Titik Utama</option>';
+                    polygonMainPoints.forEach(point => {
+                        dropdown.innerHTML += `<option value="${point.name}">${point.name} (${point.x}, ${point.y}, ${point.z})</option>`;
+                    });
+                }
+            });
+        }
+
+        function calculatePolygon() {
+            if (polygonMainPoints.length < 3) {
+                showMessage('Minimal 3 titik utama diperlukan untuk membuat poligon', 'error');
+                return;
+            }
+
+            let perimeter = 0;
+            let area = 0;
+
+            for (let i = 0; i < polygonMainPoints.length; i++) {
+                const j = (i + 1) % polygonMainPoints.length;
+                area += polygonMainPoints[i].x * polygonMainPoints[j].y;
+                area -= polygonMainPoints[j].x * polygonMainPoints[i].y;
+            }
+            area = Math.abs(area) / 2;
+
+            for (let i = 0; i < polygonMainPoints.length; i++) {
+                const j = (i + 1) % polygonMainPoints.length;
+                const dx = polygonMainPoints[j].x - polygonMainPoints[i].x;
+                const dy = polygonMainPoints[j].y - polygonMainPoints[i].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                perimeter += distance;
+
+                let azimuth = Math.atan2(dx, dy) * 180 / Math.PI;
+                if (azimuth < 0) azimuth += 360;
+
+                polygonMainPoints[i].azimuth = azimuth;
+                polygonMainPoints[i].distance = distance;
+            }
+
+            document.getElementById('polygon-perimeter').textContent = perimeter.toFixed(2) + ' m';
+            document.getElementById('polygon-area').textContent = area.toFixed(2) + ' m²';
+            document.getElementById('polygon-main-count').textContent = polygonMainPoints.length;
+            document.getElementById('polygon-sub-count').textContent = polygonSubPoints.length;
+
+            updateMainPointTable();
+            updateSubPointTable();
+            drawPolygonPreviewWithEnhancedVisualization();
+            showMessage('Perhitungan poligon berhasil!', 'success');
+        }
+
+        function updateMainPointTable() {
+            const tbody = document.getElementById('polygon-main-table-body');
+            if (polygonMainPoints.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="border border-gray-300 px-4 py-8 text-center text-gray-500">Belum ada titik utama</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = polygonMainPoints.map((point, index) => `
+                <tr>
+                    <td class="border border-gray-300 px-3 py-2 font-bold text-red-600">${point.name}</td>
+                    <td class="border border-gray-300 px-3 py-2 text-right">${point.x.toFixed(3)}</td>
+                    <td class="border border-gray-300 px-3 py-2 text-right">${point.y.toFixed(3)}</td>
+                    <td class="border border-gray-300 px-3 py-2 text-right font-semibold text-blue-600">${point.z.toFixed(3)}</td>
+                    <td class="border border-gray-300 px-3 py-2 text-right">${point.azimuth ? point.azimuth.toFixed(2) + '°' : '-'}</td>
+                    <td class="border border-gray-300 px-3 py-2 text-right">${point.distance ? point.distance.toFixed(3) + ' m' : '-'}</td>
+                    <td class="border border-gray-300 px-3 py-2 text-center">
+                        <button onclick="removeMainPoint(${index})" class="text-red-500 hover:text-red-700 text-sm font-semibold">Hapus</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updateSubPointTable() {
+            const tbody = document.getElementById('polygon-sub-table-body');
+            if (polygonSubPoints.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="border border-gray-300 px-4 py-8 text-center text-gray-500">Belum ada titik turunan</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = polygonSubPoints.map((point, index) => `
+                <tr>
+                    <td class="border border-gray-300 px-3 py-2 font-bold text-green-600">${point.name}</td>
+                    <td class="border border-gray-300 px-3 py-2 text-red-600">${point.mainPoint}</td>
+                    <td class="border border-gray-300 px-3 py-2 text-right">${point.x.toFixed(3)}</td>
+                    <td class="border border-gray-300 px-3 py-2 text-right">${point.y.toFixed(3)}</td>
+                    <td class="border border-gray-300 px-3 py-2 text-right font-semibold text-blue-600">${point.z.toFixed(3)}</td>
+                    <td class="border border-gray-300 px-3 py-2 text-center text-xs bg-yellow-50">${point.method}</td>
+                    <td class="border border-gray-300 px-3 py-2 text-center">
+                        <button onclick="removeSubPoint(${index})" class="text-red-500 hover:text-red-700 text-sm font-semibold">Hapus</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function removeMainPoint(index) {
+            const removedPoint = polygonMainPoints[index];
+            polygonMainPoints.splice(index, 1);
+            
+            polygonSubPoints = polygonSubPoints.filter(p => p.mainPoint !== removedPoint.name);
+            
+            updateMainPointTable();
+            updateSubPointTable();
+            updateSubPointDropdowns();
+            
+            if (polygonMainPoints.length >= 3) {
+                calculatePolygon();
+            } else { // If fewer than 3 main points, reset results
+                document.getElementById('polygon-perimeter').textContent = '0.00 m';
+                document.getElementById('polygon-area').textContent = '0.00 m²';
+                document.getElementById('polygon-main-count').textContent = polygonMainPoints.length;
+                document.getElementById('polygon-sub-count').textContent = polygonSubPoints.length;
+                document.getElementById('polygon-preview').innerHTML = '<p class="text-gray-500">Tambahkan minimal 3 titik utama untuk melihat preview</p>';
+            }
+            showMessage(`Titik utama ${removedPoint.name} dan titik turunannya berhasil dihapus`, 'success');
+        }
+
+        function removeSubPoint(index) {
+            const removedPoint = polygonSubPoints[index];
+            polygonSubPoints.splice(index, 1);
+            updateSubPointTable();
+            showMessage(`Titik turunan ${removedPoint.name} berhasil dihapus`, 'success');
+        }
+
+        function calculateLabelOffset(point, allPoints, allLabels, containerSize, isSubPoint = false) {
+            const MIN_PADDING = isSubPoint ? 15 : 15; // Minimum padding 10-20px
+            const baseOffset = isSubPoint ? 22 : 22;
+            const maxDistance = isSubPoint ? 65 : 70;
+            
+            let bestOffset = { offsetX: baseOffset, offsetY: -baseOffset };
+            let bestScore = Infinity;
+            
+            const angles = [];
+            for (let i = 0; i < 16; i++) {
+                angles.push((i * 22.5) * Math.PI / 180);
+            }
+            
+            for (let angle of angles) {
+                for (let distance = baseOffset; distance <= maxDistance; distance += 3) {
+                    const offsetX = distance * Math.cos(angle);
+                    const offsetY = distance * Math.sin(angle);
+                    
+                    const labelWidth = isSubPoint ? 58 : 65;
+                    const labelHeight = isSubPoint ? 30 : 40;
+                    const labelRect = {
+                        left: point.x + offsetX - labelWidth / 2,
+                        right: point.x + offsetX + labelWidth / 2,
+                        top: point.y + offsetY - labelHeight / 2,
+                        bottom: point.y + offsetY + labelHeight / 2,
+                        width: labelWidth,
+                        height: labelHeight
+                    };
+                    
+                    const canvasPadding = 20;
+                    if (labelRect.left < canvasPadding || labelRect.right > containerSize.width - canvasPadding ||
+                        labelRect.top < canvasPadding || labelRect.bottom > containerSize.height - canvasPadding) {
+                        continue;
+                    }
+                    
+                    let overlapScore = 0;
+                    let minDistanceToAnyLabel = Infinity;
+                    let minDistanceToMainPoint = Infinity;
+                    
+                    for (let otherLabel of allLabels) {
+                        if (otherLabel === point) continue;
+                        
+                        if (isSubPoint && otherLabel.name === point.mainPoint) {
+                            const distX = Math.abs(labelRect.left + labelRect.width/2 - (otherLabel.x + (otherLabel.labelOffsetX || 0)));
+                            const distY = Math.abs(labelRect.top + labelRect.height/2 - (otherLabel.y + (otherLabel.labelOffsetY || 0)));
+                            const distToMain = Math.sqrt(distX * distX + distY * distY);
+                            minDistanceToMainPoint = distToMain;
+                            
+                            if (distToMain < 15) {
+                                overlapScore += (15 - distToMain) * 8;
+                            }
+                        }
+                        
+                        const otherWidth = otherLabel.isSubPoint ? 58 : 65;
+                        const otherHeight = otherLabel.isSubPoint ? 30 : 40;
+                        const otherRect = {
+                            left: otherLabel.x + (otherLabel.labelOffsetX || 0) - otherWidth / 2,
+                            right: otherLabel.x + (otherLabel.labelOffsetX || 0) + otherWidth / 2,
+                            top: otherLabel.y + (otherLabel.labelOffsetY || 0) - otherHeight / 2,
+                            bottom: otherLabel.y + (otherLabel.labelOffsetY || 0) + otherHeight / 2
+                        };
+                        
+                        const distX = Math.max(0, 
+                            labelRect.left > otherRect.right ? labelRect.left - otherRect.right : otherRect.left - labelRect.right
+                        );
+                        const distY = Math.max(0, 
+                            labelRect.top > otherRect.bottom ? labelRect.top - otherRect.bottom : otherRect.top - labelRect.bottom
+                        );
+                        const perpendicularDist = Math.sqrt(distX * distX + distY * distY);
+                        
+                        minDistanceToAnyLabel = Math.min(minDistanceToAnyLabel, perpendicularDist);
+                        
+                        if (perpendicularDist < MIN_PADDING) {
+                            overlapScore += (MIN_PADDING - perpendicularDist) * 6;
+                        }
+                        
+                        const overlapWidth = Math.max(0, 
+                            Math.min(labelRect.right, otherRect.right) - Math.max(labelRect.left, otherRect.left)
+                        );
+                        const overlapHeight = Math.max(0, 
+                            Math.min(labelRect.bottom, otherRect.bottom) - Math.max(labelRect.top, otherRect.top)
+                        );
+                        const overlapArea = overlapWidth * overlapHeight;
+                        overlapScore += overlapArea * 12;
+                    }
+                    
+                    const distFromNode = Math.sqrt(offsetX * offsetX + offsetY * offsetY);
+                    const idealDist = isSubPoint ? 28 : 30;
+                    const distScore = Math.abs(distFromNode - idealDist) * 0.4;
+                    
+                    let score = overlapScore + distScore;
+                    if (!isSubPoint) {
+                        score += Math.max(0, MIN_PADDING - minDistanceToAnyLabel) * 2;
+                    } else {
+                        score += Math.max(0, 15 - minDistanceToMainPoint) * 3;
+                        score += Math.max(0, MIN_PADDING - minDistanceToAnyLabel) * 2.5;
+                    }
+                    
+                    if (score < bestScore) {
+                        bestScore = score;
+                        bestOffset = { offsetX, offsetY };
+                    }
+                }
+            }
+            
+            return bestOffset;
+        }
+
+        function drawPolygonPreviewWithEnhancedVisualization() {
+            const preview = document.getElementById('polygon-preview');
+            if (polygonMainPoints.length < 3) {
+                preview.innerHTML = '<p class="text-gray-500">Tambahkan minimal 3 titik utama untuk melihat preview</p>';
+                return;
+            }
+
+            const orderedPoints = [];
+            polygonMainPoints.forEach((mainPt) => {
+                orderedPoints.push({
+                    ...mainPt,
+                    isSubPoint: false,
+                    method: null,
+                    mainPoint: null
+                });
+                
+                const subPtsForMain = polygonSubPoints.filter(sp => sp.mainPoint === mainPt.name);
+                subPtsForMain.forEach((subPt) => {
+                    orderedPoints.push({
+                        ...subPt,
+                        isSubPoint: true,
+                        origPoint: mainPt
+                    });
+                });
+            });
+
+            const minX = Math.min(...orderedPoints.map(p => p.x));
+            const maxX = Math.max(...orderedPoints.map(p => p.x));
+            const minY = Math.min(...orderedPoints.map(p => p.y));
+            const maxY = Math.max(...orderedPoints.map(p => p.y));
+            
+            const width = 500;
+            const height = 320;
+            const padding = 50; 
+            
+            const rangeX = maxX - minX || 1;
+            const rangeY = maxY - minY || 1;
+            const scaleX = (width - 2 * padding) / rangeX;
+            const scaleY = (height - 2 * padding) / rangeY;
+            const scale = Math.min(scaleX, scaleY);
+
+            const svgPoints = orderedPoints.map(p => ({
+                name: p.name,
+                x: padding + (p.x - minX) * scale,
+                y: height - padding - (p.y - minY) * scale,
+                z: p.z,
+                isSubPoint: p.isSubPoint,
+                method: p.method,
+                mainPoint: p.mainPoint,
+                labelOffsetX: 0,
+                labelOffsetY: 0
+            }));
+
+            let iterations = 0;
+            const maxIterations = 10; 
+            
+            while (iterations < maxIterations) {
+                svgPoints.forEach(pt => {
+                    const offset = calculateLabelOffset(pt, svgPoints, svgPoints, { width, height }, pt.isSubPoint);
+                    pt.labelOffsetX = offset.offsetX;
+                    pt.labelOffsetY = offset.offsetY;
+                });
+                iterations++;
+            }
+
+            let pathData = `M ${svgPoints[0].x} ${svgPoints[0].y}`;
+            
+            for (let i = 0; i < svgPoints.length; i++) {
+                const current = svgPoints[i];
+                const next = svgPoints[(i + 1) % svgPoints.length];
+                const prev = svgPoints[i > 0 ? i - 1 : svgPoints.length - 1];
+                const nextNext = svgPoints[(i + 2) % svgPoints.length];
+                
+                const cp1x = current.x + (next.x - prev.x) / 6;
+                const cp1y = current.y + (next.y - prev.y) / 6;
+                const cp2x = next.x - (nextNext.x - current.x) / 6;
+                const cp2y = next.y - (nextNext.y - current.y) / 6;
+                
+                pathData += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${next.x} ${next.y}`;
+            }
+
+            let svg = `<svg width="100%" height="100%" viewBox="0 0 ${width} ${height}" class="border rounded">
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                        <polygon points="0 0, 10 5, 0 10" fill="#10b981"/>
+                    </marker>
+                </defs>
+            `;
+            
+            svg += `<path d="${pathData}" fill="rgba(59, 130, 246, 0.1)" stroke="none"/>`;
+            
+            polygonMainPoints.forEach((mainPt) => {
+                const svgMainPt = svgPoints.find(p => p.name === mainPt.name && !p.isSubPoint);
+                if (svgMainPt) {
+                    const subPtsForMain = polygonSubPoints.filter(sp => sp.mainPoint === mainPt.name);
+                    subPtsForMain.forEach((subPt) => {
+                        const svgSubPt = svgPoints.find(p => p.name === subPt.name && p.isSubPoint);
+                        if (svgSubPt) {
+                            const midX = (svgMainPt.x + svgSubPt.x) / 2;
+                            const midY = (svgMainPt.y + svgSubPt.y) / 2;
+                            
+                            const dx = svgSubPt.x - svgMainPt.x;
+                            const dy = svgSubPt.y - svgMainPt.y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            const perpX = dist > 0 ? -dy / dist * (dist * 0.12) : 0;
+                            const perpY = dist > 0 ? dx / dist * (dist * 0.12) : 0;
+                            
+                            const dashedLineColor = getComputedStyle(document.documentElement).getPropertyValue('--dashed-line-color').trim();
+                            
+                            svg += `<path d="M ${svgMainPt.x} ${svgMainPt.y} Q ${midX + perpX} ${midY + perpY} ${svgSubPt.x} ${svgSubPt.y}" 
+                                    fill="none" stroke="${dashedLineColor}" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.7"/>`;
+                        }
+                    });
+                }
+            });
+            
+            svg += `<path d="${pathData}" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linejoin="round"/>`;
+            
+            svgPoints.forEach((p) => {
+                if (!p.isSubPoint) {
+                    // Main point
+                    svg += `<circle cx="${p.x}" cy="${p.y}" r="7" fill="#ef4444" stroke="#ffffff" stroke-width="2"/>`;
+                    
+                    const labelX = p.x + p.labelOffsetX;
+                    const labelY = p.y + p.labelOffsetY;
+                    const labelWidth = 65;
+                    const labelHeight = 40;
+                    
+                    svg += `<rect x="${labelX - labelWidth/2}" y="${labelY - labelHeight/2}" width="${labelWidth}" height="${labelHeight}" fill="rgba(255,255,255,0.96)" stroke="#3b82f6" stroke-width="1.5" rx="4"/>`;
+                    svg += `<text x="${labelX}" y="${labelY - 14}" font-size="13" font-weight="bold" fill="#1f2937" text-anchor="middle">${p.name}</text>`;
+                    svg += `<text x="${labelX}" y="${labelY - 2}" font-size="7.5" fill="#6b7280" text-anchor="middle">X:${p.x.toFixed(1)}</text>`;
+                    svg += `<text x="${labelX}" y="${labelY + 8}" font-size="7.5" fill="#6b7280" text-anchor="middle">Y:${p.y.toFixed(1)}</text>`;
+                    svg += `<text x="${labelX}" y="${labelY + 18}" font-size="8" font-weight="bold" fill="#0ea5e9" text-anchor="middle">Z:${p.z.toFixed(1)}</text>`;
+                } else {
+                    // Sub-point
+                    const subPointColor = getComputedStyle(document.documentElement).getPropertyValue('--sub-point-color').trim();
+                    
+                    svg += `<circle cx="${p.x}" cy="${p.y}" r="5" fill="${subPointColor}" stroke="#ffffff" stroke-width="1.5"/>`;
+
+                    const labelX = p.x + p.labelOffsetX;
+                    const labelY = p.y + p.labelOffsetY;
+                    const labelWidth = 58; 
+                    const labelHeight = 30;
+                    
+                    const methodShort = p.method === 'Sudut+Jarak' ? 'α+δ' : p.method === 'Jarak' ? 'δ' : 'Z';
+                    svg += `<g>
+                        <rect x="${labelX - labelWidth/2}" y="${labelY - labelHeight/2}" width="${labelWidth}" height="${labelHeight}" fill="rgba(16, 185, 129, 0.95)" stroke="${subPointColor}" stroke-width="1.5" rx="3"/>
+                        <text x="${labelX}" y="${labelY - 6}" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">${p.name}</text>
+                        <text x="${labelX}" y="${labelY + 4}" font-size="7" fill="#e0f2fe" text-anchor="middle">Z:${p.z.toFixed(1)}</text>
+                        <text x="${labelX}" y="${labelY + 12}" font-size="6.5" fill="#ecfdf5" text-anchor="middle">${methodShort}</text>
+                    </g>`;
+                }
+            });
+
+            svg += `</svg>`;
+            preview.innerHTML = svg;
+        }
+
+        const sampleData = {
+            polygonMain: [
+                { name: 'A', x: 100.000, y: 200.000, z: 105.5 },
+                { name: 'B', x: 150.000, y: 200.000, z: 106.2 },
+                { name: 'C', x: 150.000, y: 250.000, z: 107.1 },
+                { name: 'D', x: 120.000, y: 270.000, z: 108.0 },
+                { name: 'E', x: 100.000, y: 250.000, z: 106.8 }
+            ],
+            polygonSub: [
+                { name: 'a1', mainPoint: 'A', x: 102.5, y: 201.2, z: 105.8, method: 'Sudut+Jarak', angle: 45, distance: 3.5 },
+                { name: 'a2', mainPoint: 'A', x: 100.000, y: 200.000, z: 106.1, method: 'Tinggi' },
+                { name: 'b1', mainPoint: 'B', x: 150.000, y: 200.000, z: 106.5, method: 'Tinggi' },
+                { name: 'c1', mainPoint: 'C', x: 150.000, y: 250.000, z: 107.4, method: 'Tinggi' },
+                { name: 'c2', mainPoint: 'C', x: 150.000, y: 250.000, z: 107.3, method: 'Tinggi' },
+                { name: 'd1', mainPoint: 'D', x: 120.000, y: 270.000, z: 108.2, method: 'Tinggi' },
+                { name: 'e1', mainPoint: 'E', x: 100.000, y: 250.000, z: 107.0, method: 'Tinggi' }
+            ],
+            grid: [
+                { name: 'G1', x: 100, y: 100, z: 105.2 },
+                { name: 'G2', x: 110, y: 100, z: 105.8 },
+                { name: 'G3', x: 120, y: 100, z: 106.1 },
+                { name: 'G4', x: 100, y: 110, z: 105.5 },
+                { name: 'G5', x: 110, y: 110, z: 106.0 },
+                { name: 'G6', x: 120, y: 110, z: 106.3 }
+            ],
+            profile: [
+                { name: 'P1', distance: 0, elevation: 105.0 },
+                { name: 'P2', distance: 25, elevation: 106.2 },
+                { name: 'P3', distance: 50, elevation: 107.8 },
+                { name: 'P4', distance: 75, elevation: 108.5 },
+                { name: 'P5', distance: 100, elevation: 109.1 }
+            ],
+            random: [
+                { name: 'R1', x: 95, y: 205, z: 105.3 },
+                { name: 'R2', x: 132, y: 187, z: 106.7 },
+                { name: 'R3', x: 168, y: 234, z: 107.2 },
+                { name: 'R4', x: 143, y: 276, z: 108.1 },
+                { name: 'R5', x: 89, y: 251, z: 106.9 }
+            ]
+        };
+
+        function loadSampleData(module) {
+            if (module === 'polygon') {
+                polygonMainPoints = JSON.parse(JSON.stringify(sampleData.polygonMain));
+                polygonSubPoints = JSON.parse(JSON.stringify(sampleData.polygonSub));
+                
+                updateMainPointTable();
+                updateSubPointTable();
+                updateSubPointDropdowns();
+                calculatePolygon();
+                
+                showMessage('Data contoh berhasil dimuat! 5 titik utama + 7 titik turunan siap dihitung.', 'success');
+            } else if (module === 'grid') {
+                gridPoints = JSON.parse(JSON.stringify(sampleData.grid));
+                updateGridTable();
+                calculateGrid();
+                showMessage('Data contoh grid berhasil dimuat!', 'success');
+            } else if (module === 'profile') {
+                profilePoints = JSON.parse(JSON.stringify(sampleData.profile));
+                updateProfileTable();
+                calculateProfile();
+                showMessage('Data contoh profil berhasil dimuat!', 'success');
+            } else if (module === 'random') {
+                randomPoints = JSON.parse(JSON.stringify(sampleData.random));
+                updateRandomTable();
+                calculateRandom();
+                showMessage('Data contoh titik acak berhasil dimuat!', 'success');
+            }
+        }
+
+        function clearData(module) {
+            if (module === 'polygon') {
+                polygonMainPoints = [];
+                polygonSubPoints = [];
+                updateMainPointTable();
+                updateSubPointTable();
+                updateSubPointDropdowns();
+                document.getElementById('polygon-perimeter').textContent = '0.00 m';
+                document.getElementById('polygon-area').textContent = '0.00 m²';
+                document.getElementById('polygon-main-count').textContent = '0';
+                document.getElementById('polygon-sub-count').textContent = '0';
+                document.getElementById('polygon-preview').innerHTML = '<p class="text-gray-500">Tambahkan minimal 3 titik utama untuk melihat preview</p>';
+                showMessage('Semua data poligon berhasil dihapus', 'success');
+            } else if (module === 'grid') {
+                gridPoints = [];
+                updateGridTable();
+                document.getElementById('grid-count').textContent = '0';
+                document.getElementById('grid-avg-elevation').textContent = '0.00 m';
+                document.getElementById('grid-elevation-range').textContent = '0.00 m';
+                document.getElementById('grid-preview').innerHTML = '<p class="text-gray-500">Tambahkan titik grid untuk melihat preview</p>';
+                showMessage('Semua data grid berhasil dihapus', 'success');
+            } else if (module === 'profile') {
+                profilePoints = [];
+                updateProfileTable();
+                document.getElementById('profile-total-distance').textContent = '0.00 m';
+                document.getElementById('profile-avg-slope').textContent = '0.00%';
+                document.getElementById('profile-max-elevation').textContent = '0.00 m';
+                document.getElementById('profile-min-elevation').textContent = '0.00 m';
+                document.getElementById('profile-chart').innerHTML = '<p class="text-gray-500">Tambahkan titik profil untuk melihat grafik</p>';
+                showMessage('Semua data profil berhasil dihapus', 'success');
+            } else if (module === 'random') {
+                randomPoints = [];
+                updateRandomTable();
+                document.getElementById('random-count').textContent = '0';
+                document.getElementById('random-avg-distance').textContent = '0.00 m';
+                document.getElementById('random-area').textContent = '0.00 m²';
+                document.getElementById('random-preview').innerHTML = '<p class="text-gray-500">Tambahkan titik acak untuk melihat sebaran</p>';
+                showMessage('Semua data titik acak berhasil dihapus', 'success');
+            }
+        }
+
+        function exportData(module, format) {
+            let data, filename;
+            
+            if (module === 'grid') {
+                if (gridPoints.length === 0) {
+                    showMessage('Tidak ada data grid untuk diekspor', 'error');
+                    return;
+                }
+                data = gridPoints;
+                filename = 'grid_data';
+            } else if (module === 'profile') {
+                if (profilePoints.length === 0) {
+                    showMessage('Tidak ada data profil untuk diekspor', 'error');
+                    return;
+                }
+                data = profilePoints;
+                filename = 'profile_data';
+            } else if (module === 'random') {
+                if (randomPoints.length === 0) {
+                    showMessage('Tidak ada data titik acak untuk diekspor', 'error');
+                    return;
+                }
+                data = randomPoints;
+                filename = 'random_points_data';
+            }
+
+            if (format === 'csv') {
+                let content = '';
+                if (module === 'grid' || module === 'random') {
+                    content = 'Nama,X,Y,Z\n';
+                    content += data.map(p => `${p.name},${p.x},${p.y},${p.z}`).join('\n');
+                } else if (module === 'profile') {
+                    content = 'Nama,Jarak,Elevasi,Kemiringan\n';
+                    content += data.map(p => `${p.name},${p.distance},${p.elevation},${p.slope || ''}`).join('\n');
+                }
+                
+                downloadFile(content, filename + '.csv', 'text/csv');
+                showMessage(`Data ${module} berhasil diekspor dalam format CSV`, 'success');
+            }
+        }
+
+        function exportPolygonData(format) {
+            if (polygonMainPoints.length === 0 && polygonSubPoints.length === 0) {
+                showMessage('Tidak ada data untuk diekspor', 'error');
+                return;
+            }
+
+            let content, filename, mimeType;
+
+            if (format === 'csv') {
+                content = 'Tipe,Nama,TitikUtama,X,Y,Z,Azimuth,Jarak,Metode\n';
+                
+                polygonMainPoints.forEach(p => {
+                    content += `Utama,${p.name},,${p.x},${p.y},${p.z},${p.azimuth || ''},${p.distance || ''},\n`;
+                });
+                
+                polygonSubPoints.forEach(p => {
+                    content += `Turunan,${p.name},${p.mainPoint},${p.x},${p.y},${p.z},,${p.method}\n`;
+                });
+                
+                filename = 'polygon_data_complete.csv';
+                mimeType = 'text/csv';
+            } else if (format === 'json') {
+                content = JSON.stringify({
+                    mainPoints: polygonMainPoints,
+                    subPoints: polygonSubPoints,
+                    metadata: {
+                        totalMainPoints: polygonMainPoints.length,
+                        totalSubPoints: polygonSubPoints.length,
+                        exportDate: new Date().toISOString()
+                    }
+                }, null, 2);
+                filename = 'polygon_data_complete.json';
+                mimeType = 'application/json';
+            }
+
+            downloadFile(content, filename, mimeType);
+            showMessage(`Data berhasil diekspor dalam format ${format.toUpperCase()}`, 'success');
+        }
+
+        function showMessage(text, type = 'info') {
+            const message = document.createElement('div');
+            message.className = `fixed top-20 right-4 px-6 py-3 rounded-lg shadow-lg z-50 ${
+                type === 'error' ? 'bg-red-100 border border-red-400 text-red-700' :
+                type === 'success' ? 'bg-green-100 border border-green-400 text-green-700' :
+                'bg-blue-100 border border-blue-400 text-blue-700'
+            }`;
+            message.textContent = text;
+            document.body.appendChild(message);
+            setTimeout(() => message.remove(), 4000);
+        }
+
+        function downloadFile(content, filename, mimeType) {
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function addGridPoint() {
+            const name = document.querySelector('.grid-name').value.trim();
+            const x = parseFloat(document.querySelector('.grid-x').value);
+            const y = parseFloat(document.querySelector('.grid-y').value);
+            const z = parseFloat(document.querySelector('.grid-z').value);
+
+            if (!name || isNaN(x) || isNaN(y) || isNaN(z)) {
+                showMessage('Semua field harus diisi dengan benar', 'error');
+                return;
+            }
+
+            if (gridPoints.find(p => p.name === name)) {
+                showMessage(`Titik ${name} sudah ada`, 'error');
+                return;
+            }
+
+            gridPoints.push({ name, x, y, z });
+            
+            document.querySelector('.grid-name').value = '';
+            document.querySelector('.grid-x').value = '';
+            document.querySelector('.grid-y').value = '';
+            document.querySelector('.grid-z').value = '';
+
+            updateGridTable();
+            showMessage(`Titik grid ${name} berhasil ditambahkan`, 'success');
+        }
+
+        function calculateGrid() {
+            if (gridPoints.length === 0) {
+                showMessage('Belum ada data grid untuk dihitung', 'error');
+                return;
+            }
+
+            const elevations = gridPoints.map(p => p.z);
+            const avgElevation = elevations.reduce((a, b) => a + b, 0) / elevations.length;
+            const minElevation = Math.min(...elevations);
+            const maxElevation = Math.max(...elevations);
+            const elevationRange = maxElevation - minElevation;
+
+            document.getElementById('grid-count').textContent = gridPoints.length;
+            document.getElementById('grid-avg-elevation').textContent = avgElevation.toFixed(2) + ' m';
+            document.getElementById('grid-elevation-range').textContent = elevationRange.toFixed(2) + ' m';
+
+            updateGridTable();
+            drawGridPreview();
+            showMessage('Perhitungan grid berhasil!', 'success');
+        }
+
+        function updateGridTable() {
+            const tbody = document.getElementById('grid-table-body');
+            if (gridPoints.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="border border-gray-300 px-4 py-8 text-center text-gray-500">Belum ada data grid</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = gridPoints.map((point, index) => `
+                <tr>
+                    <td class="border border-gray-300 px-4 py-2 font-bold">${point.name}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-right">${point.x.toFixed(3)}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-right">${point.y.toFixed(3)}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-right">${point.z.toFixed(3)}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        <button onclick="removeGridPoint(${index})" class="text-red-500 hover:text-red-700">Hapus</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function removeGridPoint(index) {
+            const removedPoint = gridPoints[index];
+            gridPoints.splice(index, 1);
+            updateGridTable();
+            if (gridPoints.length > 0) calculateGrid();
+            else { // Reset if no points left
+                document.getElementById('grid-count').textContent = '0';
+                document.getElementById('grid-avg-elevation').textContent = '0.00 m';
+                document.getElementById('grid-elevation-range').textContent = '0.00 m';
+                document.getElementById('grid-preview').innerHTML = '<p class="text-gray-500">Tambahkan titik grid untuk melihat preview</p>';
+            }
+            showMessage(`Titik grid ${removedPoint.name} berhasil dihapus`, 'success');
+        }
+
+        function drawGridPreview() {
+            const preview = document.getElementById('grid-preview');
+            if (gridPoints.length === 0) {
+                preview.innerHTML = '<p class="text-gray-500">Tambahkan titik grid untuk melihat preview</p>';
+                return;
+            }
+
+            const minX = Math.min(...gridPoints.map(p => p.x));
+            const maxX = Math.max(...gridPoints.map(p => p.x));
+            const minY = Math.min(...gridPoints.map(p => p.y));
+            const maxY = Math.max(...gridPoints.map(p => p.y));
+            
+            const width = 400;
+            const height = 250;
+            const padding = 20;
+            
+            const scaleX = (width - 2 * padding) / (maxX - minX || 1);
+            const scaleY = (height - 2 * padding) / (maxY - minY || 1);
+            const scale = Math.min(scaleX, scaleY);
+
+            preview.innerHTML = `
+                <svg width="100%" height="100%" viewBox="0 0 ${width} ${height}" class="border rounded">
+                    ${gridPoints.map(p => {
+                        const x = padding + (p.x - minX) * scale;
+                        const y = height - padding - (p.y - minY) * scale;
+                        return `<circle cx="${x}" cy="${y}" r="4" fill="#3b82f6"/>
+                                <text x="${x + 8}" y="${y - 8}" font-size="10" font-weight="bold" fill="#374151">${p.name}</text>
+                                <text x="${x + 8}" y="${y + 5}" font-size="8" fill="#6b7280">Z:${p.z.toFixed(1)}</text>`;
+                    }).join('')}
+                </svg>
+            `;
+        }
+
+        function addProfilePoint() {
+            const name = document.querySelector('.profile-name').value.trim();
+            const distance = parseFloat(document.querySelector('.profile-distance').value);
+            const elevation = parseFloat(document.querySelector('.profile-elevation').value);
+
+            if (!name || isNaN(distance) || isNaN(elevation)) {
+                showMessage('Semua field harus diisi dengan benar', 'error');
+                return;
+            }
+
+            if (profilePoints.find(p => p.name === name)) {
+                showMessage(`Titik ${name} sudah ada`, 'error');
+                return;
+            }
+
+            profilePoints.push({ name, distance, elevation });
+            profilePoints.sort((a, b) => a.distance - b.distance);
+            
+            document.querySelector('.profile-name').value = '';
+            document.querySelector('.profile-distance').value = '';
+            document.querySelector('.profile-elevation').value = '';
+
+            updateProfileTable();
+            showMessage(`Titik profil ${name} berhasil ditambahkan`, 'success');
+        }
+
+        function calculateProfile() {
+            if (profilePoints.length === 0) {
+                showMessage('Belum ada data profil untuk dihitung', 'error');
+                return;
+            }
+
+            const totalDistance = Math.max(...profilePoints.map(p => p.distance));
+            const elevations = profilePoints.map(p => p.elevation);
+            const minElevation = Math.min(...elevations);
+            const maxElevation = Math.max(...elevations);
+
+            for (let i = 0; i < profilePoints.length; i++) {
+                if (i > 0) {
+                    const prevPoint = profilePoints[i - 1];
+                    const currPoint = profilePoints[i];
+                    const deltaH = currPoint.elevation - prevPoint.elevation;
+                    const deltaD = currPoint.distance - prevPoint.distance;
+                    currPoint.slope = deltaD > 0 ? (deltaH / deltaD) * 100 : 0;
+                } else {
+                    profilePoints[i].slope = 0;
+                }
+            }
+
+            const avgSlope = profilePoints.length > 1 ? 
+                profilePoints.slice(1).reduce((sum, p) => sum + p.slope, 0) / (profilePoints.length - 1) : 0;
+
+            document.getElementById('profile-total-distance').textContent = totalDistance.toFixed(2) + ' m';
+            document.getElementById('profile-avg-slope').textContent = avgSlope.toFixed(2) + '%';
+            document.getElementById('profile-max-elevation').textContent = maxElevation.toFixed(2) + ' m';
+            document.getElementById('profile-min-elevation').textContent = minElevation.toFixed(2) + ' m';
+
+            updateProfileTable();
+            drawProfileChart();
+            showMessage('Perhitungan profil berhasil!', 'success');
+        }
+
+        function updateProfileTable() {
+            const tbody = document.getElementById('profile-table-body');
+            if (profilePoints.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="border border-gray-300 px-4 py-8 text-center text-gray-500">Belum ada data profil</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = profilePoints.map((point, index) => `
+                <tr>
+                    <td class="border border-gray-300 px-4 py-2 font-bold">${point.name}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-right">${point.distance.toFixed(3)}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-right">${point.elevation.toFixed(3)}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-right">${point.slope ? point.slope.toFixed(2) + '%' : '-'}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        <button onclick="removeProfilePoint(${index})" class="text-red-500 hover:text-red-700">Hapus</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function removeProfilePoint(index) {
+            const removedPoint = profilePoints[index];
+            profilePoints.splice(index, 1);
+            updateProfileTable();
+            if (profilePoints.length > 0) calculateProfile();
+            else { // Reset if no points left
+                document.getElementById('profile-total-distance').textContent = '0.00 m';
+                document.getElementById('profile-avg-slope').textContent = '0.00%';
+                document.getElementById('profile-max-elevation').textContent = '0.00 m';
+                document.getElementById('profile-min-elevation').textContent = '0.00 m';
+                document.getElementById('profile-chart').innerHTML = '<p class="text-gray-500">Tambahkan titik profil untuk melihat grafik</p>';
+            }
+            showMessage(`Titik profil ${removedPoint.name} berhasil dihapus`, 'success');
+        }
+
+        function drawProfileChart() {
+            const chart = document.getElementById('profile-chart');
+            if (profilePoints.length === 0) {
+                chart.innerHTML = '<p class="text-gray-500">Tambahkan titik profil untuk melihat grafik</p>';
+                return;
+            }
+
+            const width = 400;
+            const height = 250;
+            const padding = 40;
+            
+            const maxDistance = Math.max(...profilePoints.map(p => p.distance));
+            const minElevation = Math.min(...profilePoints.map(p => p.elevation));
+            const maxElevation = Math.max(...profilePoints.map(p => p.elevation));
+            
+            const scaleX = (width - 2 * padding) / (maxDistance || 1);
+            const scaleY = (height - 2 * padding) / (maxElevation - minElevation || 1);
+
+            const pathData = profilePoints.map((p, i) => {
+                const x = padding + p.distance * scaleX;
+                const y = height - padding - (p.elevation - minElevation) * scaleY;
+                return `${i === 0 ? 'M' : 'L'} ${x} ${y}`;
+            }).join(' ');
+
+            chart.innerHTML = `
+                <svg width="100%" height="100%" viewBox="0 0 ${width} ${height}" class="border rounded">
+                    <path d="${pathData}" fill="none" stroke="#3b82f6" stroke-width="2"/>
+                    ${profilePoints.map(p => {
+                        const x = padding + p.distance * scaleX;
+                        const y = height - padding - (p.elevation - minElevation) * scaleY;
+                        return `<circle cx="${x}" cy="${y}" r="3" fill="#ef4444"/>
+                                <text x="${x}" y="${y - 8}" font-size="8" text-anchor="middle" fill="#374151">${p.name}</text>`;
+                    }).join('')}
+                </svg>
+            `;
+        }
+
+        function addRandomPoint() {
+            const name = document.querySelector('.random-name').value.trim();
+            const x = parseFloat(document.querySelector('.random-x').value);
+            const y = parseFloat(document.querySelector('.random-y').value);
+            const z = parseFloat(document.querySelector('.random-z').value);
+
+            if (!name || isNaN(x) || isNaN(y) || isNaN(z)) {
+                showMessage('Semua field harus diisi dengan benar', 'error');
+                return;
+            }
+
+            if (randomPoints.find(p => p.name === name)) {
+                showMessage(`Titik ${name} sudah ada`, 'error');
+                return;
+            }
+
+            randomPoints.push({ name, x, y, z });
+            
+            document.querySelector('.random-name').value = '';
+            document.querySelector('.random-x').value = '';
+            document.querySelector('.random-y').value = '';
+            document.querySelector('.random-z').value = '';
+
+            updateRandomTable();
+            showMessage(`Titik acak ${name} berhasil ditambahkan`, 'success');
+        }
+
+        function calculateRandom() {
+            if (randomPoints.length === 0) {
+                showMessage('Belum ada titik acak untuk dianalisis', 'error');
+                return;
+            }
+
+            const centroidX = randomPoints.reduce((sum, p) => sum + p.x, 0) / randomPoints.length;
+            const centroidY = randomPoints.reduce((sum, p) => sum + p.y, 0) / randomPoints.length;
+
+            randomPoints.forEach(point => {
+                const dx = point.x - centroidX;
+                const dy = point.y - centroidY;
+                point.distanceToCenter = Math.sqrt(dx * dx + dy * dy);
+            });
+
+            const avgDistance = randomPoints.reduce((sum, p) => sum + p.distanceToCenter, 0) / randomPoints.length;
+
+            const minX = Math.min(...randomPoints.map(p => p.x));
+            const maxX = Math.max(...randomPoints.map(p => p.x));
+            const minY = Math.min(...randomPoints.map(p => p.y));
+            const maxY = Math.max(...randomPoints.map(p => p.y));
+            const area = (maxX - minX) * (maxY - minY);
+
+            document.getElementById('random-count').textContent = randomPoints.length;
+            document.getElementById('random-avg-distance').textContent = avgDistance.toFixed(2) + ' m';
+            document.getElementById('random-area').textContent = area.toFixed(2) + ' m²';
+
+            updateRandomTable();
+            drawRandomPreview();
+            showMessage('Analisis titik acak berhasil!', 'success');
+        }
+
+        function updateRandomTable() {
+            const tbody = document.getElementById('random-table-body');
+            if (randomPoints.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="border border-gray-300 px-4 py-8 text-center text-gray-500">Belum ada titik acak</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = randomPoints.map((point, index) => `
+                <tr>
+                    <td class="border border-gray-300 px-4 py-2 font-bold">${point.name}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-right">${point.x.toFixed(3)}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-right">${point.y.toFixed(3)}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-right">${point.z.toFixed(3)}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-right">${point.distanceToCenter ? point.distanceToCenter.toFixed(2) : '-'}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        <button onclick="removeRandomPoint(${index})" class="text-red-500 hover:text-red-700">Hapus</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function removeRandomPoint(index) {
+            const removedPoint = randomPoints[index];
+            randomPoints.splice(index, 1);
+            updateRandomTable();
+            if (randomPoints.length > 0) calculateRandom();
+            else { // Reset if no points left
+                document.getElementById('random-count').textContent = '0';
+                document.getElementById('random-avg-distance').textContent = '0.00 m';
+                document.getElementById('random-area').textContent = '0.00 m²';
+                document.getElementById('random-preview').innerHTML = '<p class="text-gray-500">Tambahkan titik acak untuk melihat sebaran</p>';
+            }
+            showMessage(`Titik acak ${removedPoint.name} berhasil dihapus`, 'success');
+        }
+
+        function drawRandomPreview() {
+            const preview = document.getElementById('random-preview');
+            if (randomPoints.length === 0) {
+                preview.innerHTML = '<p class="text-gray-500">Tambahkan titik acak untuk melihat sebaran</p>';
+                return;
+            }
+
+            const minX = Math.min(...randomPoints.map(p => p.x));
+            const maxX = Math.max(...randomPoints.map(p => p.x));
+            const minY = Math.min(...randomPoints.map(p => p.y));
+            const maxY = Math.max(...randomPoints.map(p => p.y));
+            
+            const width = 400;
+            const height = 250;
+            const padding = 20;
+            
+            const scaleX = (width - 2 * padding) / (maxX - minX || 1);
+            const scaleY = (height - 2 * padding) / (maxY - minY || 1);
+            const scale = Math.min(scaleX, scaleY);
+
+            const centroidX = randomPoints.reduce((sum, p) => sum + p.x, 0) / randomPoints.length;
+            const centroidY = randomPoints.reduce((sum, p) => sum + p.y, 0) / randomPoints.length;
+            const centX = padding + (centroidX - minX) * scale;
+            const centY = height - padding - (centroidY - minY) * scale;
+
+            preview.innerHTML = `
+                <svg width="100%" height="100%" viewBox="0 0 ${width} ${height}" class="border rounded">
+                    <circle cx="${centX}" cy="${centY}" r="6" fill="#ef4444" stroke="#ffffff" stroke-width="2"/>
+                    <text x="${centX + 10}" y="${centY - 10}" font-size="10" font-weight="bold" fill="#ef4444">Pusat</text>
+                    
+                    ${randomPoints.map(p => {
+                        const x = padding + (p.x - minX) * scale;
+                        const y = height - padding - (p.y - minY) * scale;
+                        return `<circle cx="${x}" cy="${y}" r="4" fill="#3b82f6"/>
+                                <line x1="${centX}" y1="${centY}" x2="${x}" y2="${y}" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+                                <text x="${x + 8}" y="${y - 8}" font-size="8" font-weight="bold" fill="#374151">${p.name}</text>`;
+                    }).join('')}
+                </svg>
+            `;
+        }
+
+        // Initialize theme on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            applyTheme(currentTheme);
+            navigateToPage('home');
+        });
+    </script>
+ </body>
+</html>
